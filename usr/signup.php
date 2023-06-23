@@ -1,8 +1,36 @@
 <?php
 
+require_once("database.php");
+
+$conn = Connection();
+
 if (isset($_SESSION['user_id'])) {
     header("Location: index.php?sid=home");
     exit();
+}
+
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $repeatPassword = $_POST['repeat_password'];
+
+    if ($password !== $repeatPassword) {
+        echo "Hesla se neshodují";
+        exit();
+    }
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashedPassword')";
+    $result = $conn->query($query);
+
+    if ($result) {
+        header("Location: index.php?sid=login");
+        exit();
+    } else {
+        echo "Chyba při registraci";
+    }
 }
 
 ?>
@@ -14,7 +42,7 @@ if (isset($_SESSION['user_id'])) {
     <input type="text" name="username" placeholder="Uživatelské jméno">
   </div>
   <div class="">
-    <input type="text" name="fullname" placeholder="Email">
+    <input type="text" name="email" placeholder="Email">
   </div>
   <div class="">
     <input type="password" name="password" placeholder="Heslo">
