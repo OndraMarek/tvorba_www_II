@@ -1,31 +1,38 @@
 <h2>Nabízené produkty</h2>
 
-<div class="container">
-    <div>
-        <img src="testimg.jpg" alt="Obrazek produktu">
-    </div>
-    <div>
-        <h3>8988 Lego City</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate quibusdam velit soluta mollitia, 
-            similique laudantium ab quia, eum expedita minus, suscipit eligendi? Nulla enim maiores laudantium, 
-            necessitatibus ducimus totam deserunt.</p>
-        <h4>500 Kč</h4>
-        <p>Prodejce: JanNovak</p>
-        <input type="submit" name="submit" value="Zakoupit">
-    </div>
-</div>
+<?php
+require_once("database.php");
 
-<div class="container">
-    <div>
-        <img src="testimg.jpg" alt="Obrazek produktu">
-    </div>
-    <div>
-        <h3>8988 Lego City</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate quibusdam velit soluta mollitia, 
-            similique laudantium ab quia, eum expedita minus, suscipit eligendi? Nulla enim maiores laudantium, 
-            necessitatibus ducimus totam deserunt.</p>
-        <h4>500 Kč</h4>
-        <p>Prodejce: JanNovak</p>
-        <input type="submit" name="submit" value="Zakoupit">
-    </div>
-</div>
+$conn = Connection();
+
+$query = "SELECT p.*, u.username FROM products p JOIN users u ON p.id_user = u.id ORDER BY p.id_product";
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $productId = $row['id_product'];
+        $name = $row['name'];
+        $description = $row['description'];
+        $price = $row['price'];
+        $imageData = $row['image'];
+        $username = $row['username'];
+
+        echo '<div class="container">';
+        echo '<div>';
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" alt="Obrazek produktu">';
+        echo '</div>';
+        echo '<div>';
+        echo '<h3>' . $name . '</h3>';
+        echo '<p>' . $description . '</p>';
+        echo '<h4>Cena:' . $price . '</h4>';
+        echo '<p>Prodejce: ' . $username . '</p>';
+        echo '<input type="submit" name="submit" value="Zakoupit">';
+        echo '</div>';
+        echo '</div>';
+    }
+} else {
+    echo 'Nebyly nalezeny žádné nabízené produkty.';
+}
+
+$conn->close();
+?>

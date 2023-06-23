@@ -10,15 +10,25 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $repeatPassword = $_POST['repeat_password'];
+  $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $repeatPassword = $_POST['repeat_password'];
 
-    if ($password !== $repeatPassword) {
-        echo "Hesla se neshodují";
-        exit();
-    }
+  if (empty($username) || empty($email) || empty($password) || empty($repeatPassword)) {
+      echo "Všechna pole musí být vyplněna";
+      exit();
+  }
+
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      echo "Neplatný formát e-mailu";
+      exit();
+  }
+
+  if ($password !== $repeatPassword) {
+      echo "Hesla se neshodují";
+      exit();
+  }
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
