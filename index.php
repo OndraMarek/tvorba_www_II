@@ -22,13 +22,11 @@ require('database.php');
 <body>
     <header>
         <nav>
+        
+            <a href="index.php?sid=home">Hlavní stránka</a>
+            <a href="index.php?sid=offers">Nábídka</a>
         <?php
-            if (!(isset($_SESSION["user_id"]))) {
-                echo '<a href="index.php?sid=home">Hlavní stránka</a>';
-                echo '<a href="index.php?sid=offers">Nábídka</a>';
-            }else {
-                echo '<a href="index.php?sid=home">Hlavní stránka</a>';
-                echo '<a href="index.php?sid=offers">Nábídka</a>';
+            if ((isset($_SESSION["user_id"]))) {
                 echo '<a href="index.php?sid=products">Mé produkty</a>';
             }
         ?>
