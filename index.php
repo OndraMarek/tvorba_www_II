@@ -4,6 +4,8 @@ session_start();
 
 $pageIdx = isset($_GET['sid']) ? $_GET['sid'] : 0;
 
+require('database.php');
+
 ?>
 
 <!doctype html>
@@ -11,7 +13,6 @@ $pageIdx = isset($_GET['sid']) ? $_GET['sid'] : 0;
 
 <head>
     <title>Lego Marketplace</title>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="style/style.css">
@@ -21,13 +22,28 @@ $pageIdx = isset($_GET['sid']) ? $_GET['sid'] : 0;
 <body>
     <header>
         <nav>
-            <a href="index.php?sid=home">Hlavní stránka</a>
-            <a href="index.php?sid=offers">Nábídka</a>
-            <a href="index.php?sid=products">Mé produkty</a>
+        <?php
+            if (!(isset($_SESSION["user_id"]))) {
+                echo '<a href="index.php?sid=home">Hlavní stránka</a>';
+                echo '<a href="index.php?sid=offers">Nábídka</a>';
+            }else {
+                echo '<a href="index.php?sid=home">Hlavní stránka</a>';
+                echo '<a href="index.php?sid=offers">Nábídka</a>';
+                echo '<a href="index.php?sid=products">Mé produkty</a>';
+            }
+        ?>
             <div class="nav-right">
-                <a href="index.php?sid=login">Přihlášení</a>
-                <a href="index.php?sid=signup">Registrace</a>
-            </div>
+            <?php
+                if (isset($_SESSION["user_id"])) {
+                    echo '<a href="index.php?sid=logout">Odhlasit</a>';
+                    echo '<a href="index.php?sid=cart">Košík - 0</a>';
+                } else {
+                    echo '<a href="index.php?sid=login">Přihlášení</a>';
+                    echo '<a href="index.php?sid=signup">Registrace</a>';
+                    
+                }
+            ?>
+</div>
         </nav>
         
         <div>
@@ -51,12 +67,18 @@ $pageIdx = isset($_GET['sid']) ? $_GET['sid'] : 0;
         case "products":
             include("inc/products.php");
             break;
+        case "cart":
+            include("inc/cart.php");
+            break;
         case "login":
             include("usr/login.php");
             break;
         case "signup":
             include("usr/signup.php");
-            break;
+            break;    
+        case "logout":
+            include("usr/logout.php");
+            break;  
         default:
           include("inc/home.php");
       }

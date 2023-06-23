@@ -61,7 +61,8 @@ form div {
 
 form input[type='text'],
 form input[type='password'],
-form input[type='submit'] {
+form input[type='submit'],
+input[type='submit'] {
     padding: 10px;
     width: 300px;
 }
@@ -76,4 +77,76 @@ form input[type='submit'] {
 
 form input[type='submit']:hover {
     background-color: #c20009;
+}
+
+input[type='submit'] {
+    background-color: #e3000b;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+input[type='submit']:hover {
+    background-color: #c20009;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 20px;
+}
+
+.container {
+    background-color: rgb(212, 206, 206);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 5px auto;
+    padding: 10px;
+}
+
+.container > div {
+    flex: 1;
+}
+
+.container > div:first-child {
+    flex-basis: 33.33%;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.container > div:last-child {
+    flex-basis: 66.66%;
+    text-align: left;
+}
+
+.container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container.cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1200px; /* Pevná šířka kontejneru */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container.cart > * {
+    margin: 0;
+    padding: 0 10px;
+}
+
+.container.cart input[type='submit'] {
+    margin-left: 50px;
+    padding: 10px;
+    width: auto;
 }

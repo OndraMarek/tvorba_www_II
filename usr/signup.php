@@ -1,3 +1,12 @@
+<?php
+
+if (isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+?>
+
 <h2>Registrace</h2>
 
 <form action="" method="post">
