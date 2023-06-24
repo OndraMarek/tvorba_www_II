@@ -27,9 +27,9 @@ if (isset($_POST['submit'])) {
         $result = $conn->query($query);
 
         if ($result) {
-            echo '<p class="description">Produkt byl úspěšně přidán do nabídky.</p>';
+            echo '<p class="message">Produkt byl úspěšně přidán do nabídky.</p>';
         } else {
-            echo '<p class="description">Chyba při přidávání produktu.</p>';
+            echo '<p class="message">Chyba při přidávání produktu.</p>';
         }
     }
 }

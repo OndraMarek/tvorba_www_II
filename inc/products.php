@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
         echo '<p>' . $description . '</p>';
         echo '<h4>Cena:' . $price . '</h4>';
         echo '<p>Prodejce: ' . $username . '</p>';
-        echo '<form class="delete" action="" method="post">';
+        echo '<form class="aaa" action="" method="post">';
         echo '<input type="hidden" name="product_id" value="' . $productId . '">';
         echo '<input type="submit" name="delete" value="Smazat">';
         echo '</form>';

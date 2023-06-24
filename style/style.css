@@ -94,7 +94,7 @@ input[type='submit']:hover {
     background-color: #c20009;
 }
 
-form.delete {
+form.aaa {
     align-items: normal;
 }
 
@@ -159,4 +159,12 @@ main {
 
 p .message {
     margin: 20px;
+}
+
+.username {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 16px;
 }

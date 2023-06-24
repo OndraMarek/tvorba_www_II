@@ -6,6 +6,23 @@ $pageIdx = isset($_GET['sid']) ? $_GET['sid'] : 0;
 
 require('database.php');
 
+$conn = Connection();
+
+$username = "";
+if (isset($_SESSION["user_id"])) {
+    $userId = $_SESSION["user_id"];
+    $query = "SELECT username FROM users WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $username = $row["username"];
+    }
+    $stmt->close();
+}
+
 ?>
 
 <!doctype html>
@@ -24,7 +41,7 @@ require('database.php');
         <nav>
         
             <a href="index.php?sid=home">Hlavní stránka</a>
-            <a href="index.php?sid=offers">Nábídka</a>
+            <a href="index.php?sid=offers">Nabídka</a>
         <?php
             if ((isset($_SESSION["user_id"]))) {
                 echo '<a href="index.php?sid=products">Mé produkty</a>';
@@ -34,15 +51,15 @@ require('database.php');
             <div class="nav-right">
             <?php
                 if (isset($_SESSION["user_id"])) {
+                    echo '<span class="username">Uživatel: ' . $username . '</span>';
                     echo '<a href="index.php?sid=logout">Odhlasit</a>';
-                    echo '<a href="index.php?sid=cart">Košík - 0</a>';
+                    echo '<a href="index.php?sid=cart">Košík</a>';
                 } else {
                     echo '<a href="index.php?sid=login">Přihlášení</a>';
                     echo '<a href="index.php?sid=signup">Registrace</a>';
-                    
                 }
             ?>
-</div>
+            </div>
         </nav>
         
         <div>
