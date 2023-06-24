@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
     }
 } else {
-    echo 'Nebyly nalezeny žádné nabízené produkty.';
+    echo '<p class="message">Nebyli nalezeny žádné nabízené produkty.</p>';
 }
 
 $conn->close();

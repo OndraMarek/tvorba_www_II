@@ -28,6 +28,7 @@ require('database.php');
         <?php
             if ((isset($_SESSION["user_id"]))) {
                 echo '<a href="index.php?sid=products">Mé produkty</a>';
+                echo '<a href="index.php?sid=add">Prodat</a>';
             }
         ?>
             <div class="nav-right">
@@ -64,6 +65,9 @@ require('database.php');
             break;
         case "products":
             include("inc/products.php");
+            break;
+        case "add":
+            include("product/add.php");
             break;
         case "cart":
             include("inc/cart.php");

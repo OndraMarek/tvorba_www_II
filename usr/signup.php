@@ -16,17 +16,17 @@ if (isset($_POST['submit'])) {
   $repeatPassword = $_POST['repeat_password'];
 
   if (empty($username) || empty($email) || empty($password) || empty($repeatPassword)) {
-      echo "Všechna pole musí být vyplněna";
+      echo '<p class="message">Všechna pole musí být vyplněna</p>';
       exit();
   }
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      echo "Neplatný formát e-mailu";
+      echo '<p class="message">Neplatný formát e-mailu</p>';
       exit();
   }
 
   if ($password !== $repeatPassword) {
-      echo "Hesla se neshodují";
+      echo '<p class="message">Hesla se neshodují</p>';
       exit();
   }
 
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
         header("Location: index.php?sid=login");
         exit();
     } else {
-        echo "Chyba při registraci";
+        echo '<p class="message">Chyba při registraci</p>';
     }
 }
 

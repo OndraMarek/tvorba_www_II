@@ -1,45 +1,63 @@
+<h2>Mé produkty</h2>
+
 <?php
+
+require_once("database.php");
+
+$conn = Connection();
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php?sid=login");
     exit();
 }
 
+if (isset($_POST['delete'])) {
+    $productId = $_POST['product_id'];
+
+    $query = "DELETE FROM products WHERE id_product = ? AND id_user = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $productId, $_SESSION['user_id']);
+    $stmt->execute();
+    $stmt->close();
+}
+
+$query = "SELECT p.*, u.username FROM products p JOIN users u ON p.id_user = u.id WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $productId = $row['id_product'];
+        $name = $row['name'];
+        $description = $row['description'];
+        $price = $row['price'];
+        $imageData = $row['image'];
+        $username = $row['username'];
+
+        echo '<div class="container">';
+        echo '<div>';
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" alt="Obrazek produktu">';
+        echo '</div>';
+        echo '<div>';
+        echo '<h3>' . $name . '</h3>';
+        echo '<p>' . $description . '</p>';
+        echo '<h4>Cena:' . $price . '</h4>';
+        echo '<p>Prodejce: ' . $username . '</p>';
+        echo '<form class="delete" action="" method="post">';
+        echo '<input type="hidden" name="product_id" value="' . $productId . '">';
+        echo '<input type="submit" name="delete" value="Smazat">';
+        echo '</form>';
+        echo '</div>';
+        echo '</div>';
+    }
+} else {
+    echo '<p class="message">Nemáte žádné nabízené produkty.</p>';
+}
+
+$stmt->close();
+$conn->close();
 ?>
-
-<h2>Mé produkty</h2>
-
-<div class="container">
-    <div>
-        <img src="testimg.jpg" alt="Obrazek produktu">
-    </div>
-    <div>
-        <h3>8988 Lego City</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate quibusdam velit soluta mollitia, 
-            similique laudantium ab quia, eum expedita minus, suscipit eligendi? Nulla enim maiores laudantium, 
-            necessitatibus ducimus totam deserunt.</p>
-        <h4>500 Kč</h4>
-        <p>Prodejce: JanNovak</p>
-        <input type="submit" name="submit" value="Upravit">
-        <input type="submit" name="submit" value="Smazat">
-    </div>
-</div>
-
-<div class="container">
-    <div>
-        <img src="testimg.jpg" alt="Obrazek produktu">
-    </div>
-    <div>
-        <h3>8988 Lego City</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate quibusdam velit soluta mollitia, 
-            similique laudantium ab quia, eum expedita minus, suscipit eligendi? Nulla enim maiores laudantium, 
-            necessitatibus ducimus totam deserunt.</p>
-        <h4>500 Kč</h4>
-        <p>Prodejce: JanNovak</p>
-        <input type="submit" name="submit" value="Upravit">
-        <input type="submit" name="submit" value="Smazat">
-    </div>
-</div>
-<input type="submit" name="submit" value="Prodat">
 
 

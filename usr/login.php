@@ -13,7 +13,6 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Získání uloženého hesla z databáze pro zadaného uživatele
     $query = "SELECT id, password FROM users WHERE username = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $username);
@@ -22,12 +21,11 @@ if (isset($_POST['login'])) {
     $stmt->fetch();
 
     if ($hashed_password && password_verify($password, $hashed_password)) {
-        // Přihlášení úspěšné
         $_SESSION['user_id'] = $user_id;
         header("Location: index.php?sid=home");
         exit();
     } else {
-        echo "Neplatné přihlašovací údaje";
+        echo '<p class="message">Neplatné přihlašovací údaje</p>';
     }
 }
 
