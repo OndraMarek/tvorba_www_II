@@ -1,3 +1,32 @@
+html {
+    background-color: rgb(212, 206, 206);
+}
+
+body {
+    margin: 0px;
+}
+
+header {
+    background-color: #e3000b;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 20px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
 h1 {
     text-align: center;
     color: white;
@@ -6,8 +35,13 @@ h1 {
     margin: 20px 0;
 }
 
-header {
-    background-color: #e3000b;
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-weight: bold;
 }
 
 nav {
@@ -35,48 +69,26 @@ nav a:hover {
     color: white;
 }
 
-footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 50px;
-}
-
-form {
+form.norm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-h2 {
-    text-align: center;
+form.norm div {
     margin-bottom: 10px;
 }
 
-form div {
-    margin-bottom: 10px;
-}
-
-form input[type='text'],
-form input[type='password'],
-form input[type='submit'],
-input[type='submit'] {
+input {
     padding: 10px;
     width: 300px;
 }
 
-form input[type='submit'] {
-    background-color: #e3000b;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-}
-
-form input[type='submit']:hover {
-    background-color: #c20009;
+textarea {
+    padding: 10px;
+    width: 300px;
+    height: 300px;
 }
 
 input[type='submit'] {
@@ -94,27 +106,25 @@ input[type='submit']:hover {
     background-color: #c20009;
 }
 
-form.aaa {
+form.align {
     align-items: normal;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0 20px;
-}
-
 .container {
-    background-color: rgb(212, 206, 206);
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     max-width: 1200px;
     margin: 5px auto;
     padding: 10px;
+    height: 280px;
+}
+
+@media (max-width: 1224px) {
+    .container {
+        height: auto;
+    }
 }
 
 .container > div {
@@ -133,28 +143,50 @@ main {
 }
 
 .container img {
-    max-width: 100%;
+    object-fit: contain;
+    width: 100%;
     height: auto;
+    max-height: 280px;
 }
 
-.container.cart {
+.container_cart {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    background-color: white;
+    font-weight: bold;
     width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.container.cart > * {
-    margin: 0;
-    padding: 0 10px;
-}
-
-.container.cart input[type='submit'] {
-    margin-left: 50px;
+    height: auto;
+    margin: 5px auto;
     padding: 10px;
+}
+
+.container_cart > p:first-child {
+    flex: 1;
+}
+
+.container_cart > form > input[type='submit'],
+.total_price > form > input[type='submit'] {
     width: auto;
+    margin-left: 10px;
+}
+
+.total_price {
+    font-weight: bold;
+    width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+button:disabled {
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 300px;
 }
 
 p .message {

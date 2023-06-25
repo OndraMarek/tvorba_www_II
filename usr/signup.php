@@ -47,20 +47,20 @@ if (isset($_POST['submit'])) {
 
 <h2>Registrace</h2>
 
-<form action="" method="post">
-  <div class="">
+<form class="norm" action="" method="post">
+  <div>
     <input type="text" name="username" placeholder="Uživatelské jméno">
   </div>
-  <div class="">
+  <div>
     <input type="text" name="email" placeholder="Email">
   </div>
-  <div class="">
+  <div>
     <input type="password" name="password" placeholder="Heslo">
   </div>
-  <div class="">
+  <div>
     <input type="password" name="repeat_password" placeholder="Opakujte heslo">
   </div>
-  <div class="">
+  <div>
     <input type="submit" name="submit" value="Registrovat">
   </div>
 </form>

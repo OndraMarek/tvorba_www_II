@@ -43,9 +43,9 @@ if ($result->num_rows > 0) {
         echo '<div>';
         echo '<h3>' . $name . '</h3>';
         echo '<p>' . $description . '</p>';
-        echo '<h4>Cena:' . $price . '</h4>';
+        echo '<h4>Cena: ' . $price . '</h4>';
         echo '<p>Prodejce: ' . $username . '</p>';
-        echo '<form class="aaa" action="" method="post">';
+        echo '<form class="norm align" action="" method="post">';
         echo '<input type="hidden" name="product_id" value="' . $productId . '">';
         echo '<input type="submit" name="delete" value="Smazat">';
         echo '</form>';

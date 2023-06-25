@@ -39,7 +39,6 @@ if (isset($_SESSION["user_id"])) {
 <body>
     <header>
         <nav>
-        
             <a href="index.php?sid=home">Hlavní stránka</a>
             <a href="index.php?sid=offers">Nabídka</a>
         <?php

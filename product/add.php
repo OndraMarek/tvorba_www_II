@@ -38,20 +38,20 @@ $conn->close();
 
 ?>
 
-<form action="" method="post" enctype="multipart/form-data">
-  <div class="">
+<form class="norm" action="" method="post" enctype="multipart/form-data">
+  <div>
     <input type="text" name="name" placeholder="Název produktu">
   </div>
-  <div class="">
-  <textarea name="description" placeholder="Popis"></textarea>
+  <div>
+  <textarea name="description" placeholder="Popis" maxlength="550"></textarea>
   </div>
-  <div class="">
+  <div>
     <input type="number" name="price" placeholder="Cena">
   </div>
-  <div class="">
+  <div>
     <input type="file" name="image" accept="image/*">
   </div>
-  <div class="">
+  <div>
     <input type="submit" name="submit" value="Přidat produkt">
   </div>
 </form>

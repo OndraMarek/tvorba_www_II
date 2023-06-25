@@ -40,24 +40,31 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
+    $totalPrice = 0;
+
     while ($row = $result->fetch_assoc()) {
         $name = $row['name'];
         $price = $row['price'];
 
-        echo '<div class="container cart">';
-        echo '<h3>' . $name . '</h3>';
-        echo '<h4>' . $price . '</h4>';
+        $totalPrice += $price;
+
+        echo '<div class="container_cart">';
+        echo '<p>' . $name . '</p>';
+        echo '<p>Cena: ' . $price . ' Kč</p>';
         echo '<form action="" method="post">';
         echo '<input type="hidden" name="product_name" value="' . $name . '">';
         echo '<input type="submit" name="submit" value="Odstranit">';
         echo '</form>';
-
         echo '</div>';
     }
+
+    echo '<div class="total_price">';
+    echo '<p>Celková cena: ' . $totalPrice . ' Kč</p>';
+    echo '<form action="" method="post">';
+    echo '<input type="submit" name="order" value="Objednat">';
+    echo '</form>';
+    echo '</div>';
 } else {
     echo '<p class="message">Váš košík je prázdný.</p>';
 }
-
-$stmt->close();
-$conn->close();
 ?>

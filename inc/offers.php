@@ -55,24 +55,36 @@ if ($result->num_rows > 0) {
         $imageData = $row['image'];
         $username = $row['username'];
 
-        echo '<div class="container">';
-        echo '<div>';
-        echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" alt="Obrazek produktu">';
-        echo '</div>';
-        echo '<div>';
-        echo '<h3>' . $name . '</h3>';
-        echo '<p>' . $description . '</p>';
-        echo '<h4>Cena:' . $price . '</h4>';
-        echo '<p>Prodejce: ' . $username . '</p>';
+        if ($loggedInUserId !== $row['id_user']) {
+            echo '<div class="container">';
+            echo '<div>';
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" alt="Obrazek produktu">';
+            echo '</div>';
+            echo '<div>';
+            echo '<h3>' . $name . '</h3>';
+            echo '<p>' . $description . '</p>';
+            echo '<h4>Cena: ' . $price . ' Kč</h4>';
+            echo '<p>Prodejce: ' . $username . '</p>';
 
-        if (isset($_SESSION['user_id'])) {
-            echo '<form class="aaa" action="" method="post">';
-            echo '<input type="hidden" name="product_id" value="' . $productId . '">';
-            echo '<input type="submit" name="submit" value="Zakoupit">';
-            echo '</form>';
+            if (isset($_SESSION['user_id'])) {
+                $query = "SELECT id_cart FROM cart WHERE id_product = ? AND id_user <> ?";
+                $stmt_check = $conn->prepare($query);
+                $stmt_check->bind_param("ii", $productId, $loggedInUserId);
+                $stmt_check->execute();
+                $result_check = $stmt_check->get_result();
+
+                if ($result_check->num_rows > 0) {
+                    echo '<button disabled>Nedostupné</button>';
+                } else {
+                    echo '<form class="norm align" action="" method="post">';
+                    echo '<input type="hidden" name="product_id" value="' . $productId . '">';
+                    echo '<input type="submit" name="submit" value="Zakoupit">';
+                    echo '</form>';
+                }
+            }
+            echo '</div>';
+            echo '</div>';
         }
-        echo '</div>';
-        echo '</div>';
     }
 } else {
     echo '<p class="message">Nebyly nalezeny žádné nabízené produkty.</p>';
