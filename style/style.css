@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    margin: 0px;
+    margin: 0;
 }
 
 header {
@@ -15,7 +15,6 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
     padding: 0 20px;
 }
 
@@ -27,17 +26,16 @@ footer {
     margin-top: 50px;
 }
 
-h1 {
+h1,
+h2 {
     text-align: center;
-    color: white;
-    background-color: #e3000b;
-    padding: 20px 20px 40px;
     margin: 20px 0;
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
+h1 {
+    color: white;
+    background-color: #e3000b;
+    padding: 20px;
 }
 
 h4 {
@@ -48,7 +46,7 @@ nav {
     display: flex;
     align-items: center;
     background-color: white;
-    padding: 0px 0px 0px;
+    padding: 0;
     font-size: 0;
 }
 
@@ -80,15 +78,10 @@ form.norm div {
     margin-bottom: 10px;
 }
 
-input {
-    padding: 10px;
-    width: 300px;
-}
-
+input,
 textarea {
     padding: 10px;
     width: 300px;
-    height: 300px;
 }
 
 input[type='submit'] {
@@ -97,9 +90,7 @@ input[type='submit'] {
     font-weight: bold;
     border: none;
     cursor: pointer;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin: 10px 10px 0;
 }
 
 input[type='submit']:hover {
@@ -115,16 +106,10 @@ form.align {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    max-width: 1200px;
+    width: 1200px;
     margin: 5px auto;
     padding: 10px;
     height: 280px;
-}
-
-@media (max-width: 1224px) {
-    .container {
-        height: auto;
-    }
 }
 
 .container > div {
@@ -149,7 +134,7 @@ form.align {
     max-height: 280px;
 }
 
-.container_cart {
+div.container-cart {
     display: flex;
     align-items: center;
     background-color: white;
@@ -160,17 +145,17 @@ form.align {
     padding: 10px;
 }
 
-.container_cart > p:first-child {
+div.container-cart > p:first-child {
     flex: 1;
 }
 
-.container_cart > form > input[type='submit'],
-.total_price > form > input[type='submit'] {
+div.container-cart > form > input[type='submit'],
+div.container-total > form > input[type='submit'] {
     width: auto;
     margin-left: 10px;
 }
 
-.total_price {
+div.container-total {
     font-weight: bold;
     width: 1200px;
     display: flex;
@@ -182,14 +167,12 @@ button:disabled {
     font-weight: bold;
     border: none;
     cursor: pointer;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin: 10px 10px 0;
     padding: 10px;
     width: 300px;
 }
 
-p .message {
+p.message {
     margin: 20px;
 }
 
@@ -199,4 +182,74 @@ p .message {
     font-weight: bold;
     padding: 20px;
     font-size: 16px;
+}
+
+@media (max-width: 1224px) {
+    .container,
+    div.container-cart,
+    div.container-total {
+        height: auto;
+        width: auto;
+    }
+    div.container-cart,
+    div.container-total {
+        min-width: 768px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        padding: 20px 20px 30px;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav a {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .container,
+    div.container-cart,
+    div.container-total {
+        padding: 20px;
+    }
+
+    div.container-cart,
+    div.container-total {
+        min-width: 576px;
+        font-size: 12px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        padding: 20px;
+        margin-bottom: 0;
+    }
+
+    nav a {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+
+    .container,
+    div.container-cart,
+    div.container-total {
+        padding: 10px;
+    }
+
+    div.container-cart,
+    div.container-total {
+        min-width: 380px;
+    }
 }

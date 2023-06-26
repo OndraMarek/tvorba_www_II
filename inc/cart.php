@@ -1,7 +1,6 @@
 <h2>Váš košík</h2>
 
 <?php
-
 require_once("database.php");
 
 $conn = Connection();
@@ -16,28 +15,29 @@ $userId = $_SESSION['user_id'];
 if (isset($_POST['submit']) && $_POST['submit'] === 'Odstranit') {
     $productName = $_POST['product_name'];
 
-    $query = "DELETE c FROM cart c
-              INNER JOIN products p ON c.id_product = p.id_product
-              WHERE c.id_user = ? AND p.name = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("is", $userId, $productName);
-    if ($stmt->execute()) {
+    $deleteQuery = "DELETE c FROM cart c
+                    INNER JOIN products p ON c.id_product = p.id_product
+                    WHERE c.id_user = ? AND p.name = ?";
+    $deleteStmt = $conn->prepare($deleteQuery);
+    $deleteStmt->bind_param("is", $userId, $productName);
+
+    if ($deleteStmt->execute()) {
         echo '<p class="message">Produkt byl úspěšně odstraněn z košíku.</p>';
     } else {
         echo '<p class="message">Nastala chyba při odstraňování produktu z košíku.</p>';
     }
 
-    $stmt->close();
+    $deleteStmt->close();
 }
 
-$query = "SELECT p.name, p.price
-          FROM products p
-          INNER JOIN cart c ON p.id_product = c.id_product
-          WHERE c.id_user = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
+$selectQuery = "SELECT p.name, p.price
+                FROM products p
+                INNER JOIN cart c ON p.id_product = c.id_product
+                WHERE c.id_user = ?";
+$selectStmt = $conn->prepare($selectQuery);
+$selectStmt->bind_param("i", $userId);
+$selectStmt->execute();
+$result = $selectStmt->get_result();
 
 if ($result->num_rows > 0) {
     $totalPrice = 0;
@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
 
         $totalPrice += $price;
 
-        echo '<div class="container_cart">';
+        echo '<div class="container-cart">';
         echo '<p>' . $name . '</p>';
         echo '<p>Cena: ' . $price . ' Kč</p>';
         echo '<form action="" method="post">';
@@ -58,7 +58,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
     }
 
-    echo '<div class="total_price">';
+    echo '<div class="container-total">';
     echo '<p>Celková cena: ' . $totalPrice . ' Kč</p>';
     echo '<form action="" method="post">';
     echo '<input type="submit" name="order" value="Objednat">';
@@ -67,4 +67,7 @@ if ($result->num_rows > 0) {
 } else {
     echo '<p class="message">Váš košík je prázdný.</p>';
 }
+
+$selectStmt->close();
+$conn->close();
 ?>

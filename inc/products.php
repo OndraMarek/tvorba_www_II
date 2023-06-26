@@ -35,22 +35,25 @@ if ($result->num_rows > 0) {
         $price = $row['price'];
         $imageData = $row['image'];
         $username = $row['username'];
+        ?>
 
-        echo '<div class="container">';
-        echo '<div>';
-        echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" alt="Obrazek produktu">';
-        echo '</div>';
-        echo '<div>';
-        echo '<h3>' . $name . '</h3>';
-        echo '<p>' . $description . '</p>';
-        echo '<h4>Cena: ' . $price . '</h4>';
-        echo '<p>Prodejce: ' . $username . '</p>';
-        echo '<form class="norm align" action="" method="post">';
-        echo '<input type="hidden" name="product_id" value="' . $productId . '">';
-        echo '<input type="submit" name="delete" value="Smazat">';
-        echo '</form>';
-        echo '</div>';
-        echo '</div>';
+        <div class="container">
+            <div>
+                <img src="data:image/jpeg;base64,<?= base64_encode($imageData) ?>" alt="Obrazek produktu">
+            </div>
+            <div>
+                <h3><?= $name ?></h3>
+                <p><?= $description ?></p>
+                <h4>Cena: <?= $price ?></h4>
+                <p>Prodejce: <?= $username ?></p>
+                <form class="norm align" action="" method="post">
+                    <input type="hidden" name="product_id" value="<?= $productId ?>">
+                    <input type="submit" name="delete" value="Smazat">
+                </form>
+            </div>
+        </div>
+        
+        <?php
     }
 } else {
     echo '<p class="message">Nemáte žádné nabízené produkty.</p>';
@@ -59,5 +62,3 @@ if ($result->num_rows > 0) {
 $stmt->close();
 $conn->close();
 ?>
-
-

@@ -1,5 +1,17 @@
-<?php
+<h2>Přihlášení</h2>
+<form class="norm" action="" method="post">
+  <div>
+    <input type="text" name="username" placeholder="Uživatelské jméno">
+  </div>
+  <div>
+    <input type="password" name="password" placeholder="Heslo">
+  </div>
+  <div>
+    <input type="submit" name="login" value="Přihlásit">
+  </div>
+</form>
 
+<?php
 require_once("database.php");
 
 $conn = Connection();
@@ -17,30 +29,17 @@ if (isset($_POST['login'])) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $username);
     $stmt->execute();
-    $stmt->bind_result($user_id, $hashed_password);
-    $stmt->fetch();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-    if ($hashed_password && password_verify($password, $hashed_password)) {
-        $_SESSION['user_id'] = $user_id;
+    if ($row && password_verify($password, $row['password'])) {
+        $_SESSION['user_id'] = $row['id'];
         header("Location: index.php?sid=home");
         exit();
     } else {
         echo '<p class="message">Neplatné přihlašovací údaje</p>';
     }
+
+    $stmt->close();
 }
-
 ?>
-
-<h2>Přihlášení</h2>
-
-<form class="norm" action="" method="post">
-  <div>
-    <input type="text" name="username" placeholder="Uživatelské jméno">
-  </div>
-  <div>
-    <input type="password" name="password" placeholder="Heslo">
-  </div>
-  <div>
-    <input type="submit"  name="login" value="Přihlásit">
-  </div>
-</form>
