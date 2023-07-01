@@ -15,7 +15,8 @@ $userId = $_SESSION['user_id'];
 if (isset($_POST['submit']) && $_POST['submit'] === 'Odstranit') {
     $productName = $_POST['product_name'];
 
-    $deleteQuery = "DELETE c FROM cart c
+    $deleteQuery = "DELETE c, p
+                    FROM cart c
                     INNER JOIN products p ON c.id_product = p.id_product
                     WHERE c.id_user = ? AND p.name = ?";
     $deleteStmt = $conn->prepare($deleteQuery);
@@ -28,6 +29,23 @@ if (isset($_POST['submit']) && $_POST['submit'] === 'Odstranit') {
     }
 
     $deleteStmt->close();
+}
+
+if (isset($_POST['order']) && $_POST['order'] === 'Objednat') {
+    $deleteAllQuery = "DELETE c, p
+                       FROM cart c
+                       INNER JOIN products p ON c.id_product = p.id_product
+                       WHERE c.id_user = ?";
+    $deleteAllStmt = $conn->prepare($deleteAllQuery);
+    $deleteAllStmt->bind_param("i", $userId);
+
+    if ($deleteAllStmt->execute()) {
+        echo '<p class="message">Objednávka byla úspěšně odeslána.</p>';
+    } else {
+        echo '<p class="message">Nastala chyba při odesílání objednávky.</p>';
+    }
+
+    $deleteAllStmt->close();
 }
 
 $selectQuery = "SELECT p.name, p.price

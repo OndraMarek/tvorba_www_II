@@ -39,7 +39,7 @@ if (isset($_SESSION["user_id"])) {
 <body>
     <header>
         <nav>
-            <a href="index.php?sid=home">Hlavní stránka</a>
+
             <a href="index.php?sid=offers">Nabídka</a>
 
             <?php if (isset($_SESSION["user_id"])) : ?>
@@ -79,7 +79,6 @@ if (isset($_SESSION["user_id"])) {
 <?php function renderDifferentPage($id)
         {
             $pages = [
-                "home" => "inc/home.php",
                 "offers" => "inc/offers.php",
                 "products" => "inc/products.php",
                 "add" => "product/add.php",
@@ -89,6 +88,6 @@ if (isset($_SESSION["user_id"])) {
                 "logout" => "usr/logout.php",
             ];
 
-            $page = $pages[$id] ?? "inc/home.php";
+            $page = $pages[$id] ?? "inc/offers.php";
             include $page;
         } ?>

@@ -17,7 +17,7 @@ require_once("database.php");
 $conn = Connection();
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php?sid=home");
+    header("Location: index.php?sid=offers");
     exit();
 }
 
@@ -34,7 +34,7 @@ if (isset($_POST['login'])) {
 
     if ($row && password_verify($password, $row['password'])) {
         $_SESSION['user_id'] = $row['id'];
-        header("Location: index.php?sid=home");
+        header("Location: index.php?sid=offers");
         exit();
     } else {
         echo '<p class="message">Neplatné přihlašovací údaje</p>';

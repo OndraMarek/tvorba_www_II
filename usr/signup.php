@@ -23,7 +23,7 @@ require_once("database.php");
 $conn = Connection();
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php?sid=home");
+    header("Location: index.php?sid=offers");
     exit();
 }
 
