@@ -12,13 +12,13 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-if (isset($_POST['submit']) && $_POST['submit'] === 'Odstranit') {
+if (isset($_POST['delete']) && $_POST['delete'] === 'Odstranit') {
     $productName = $_POST['product_name'];
 
-    $deleteQuery = "DELETE c, p
-                    FROM cart c
-                    INNER JOIN products p ON c.id_product = p.id_product
-                    WHERE c.id_user = ? AND p.name = ?";
+    $deleteQuery = "DELETE FROM cart
+                    WHERE id_user = ? AND id_product IN (
+                      SELECT id_product FROM products WHERE name = ?
+                    )";
     $deleteStmt = $conn->prepare($deleteQuery);
     $deleteStmt->bind_param("is", $userId, $productName);
 
@@ -71,7 +71,7 @@ if ($result->num_rows > 0) {
         echo '<p>Cena: ' . $price . ' Kč</p>';
         echo '<form action="" method="post">';
         echo '<input type="hidden" name="product_name" value="' . $name . '">';
-        echo '<input type="submit" name="submit" value="Odstranit">';
+        echo '<input type="submit" name="delete" value="Odstranit">';
         echo '</form>';
         echo '</div>';
     }

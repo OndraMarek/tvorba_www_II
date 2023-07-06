@@ -9,7 +9,7 @@ if (isset($_SESSION['user_id'])) {
     $loggedInUserId = $_SESSION['user_id'];
 }
 
-if (isset($_POST['submit']) && $_POST['submit'] === 'Zakoupit') {
+if (isset($_POST['submit']) && $_POST['submit'] === 'Do košíku') {
     $productId = $_POST['product_id'];
 
     $query = "SELECT id_cart FROM cart WHERE id_user = ? AND id_product = ?";
@@ -81,7 +81,7 @@ if ($result->num_rows > 0) {
                             ?>
                             <form class="norm align" action="" method="post">
                                 <input type="hidden" name="product_id" value="<?= $productId ?>">
-                                <input type="submit" name="submit" value="Zakoupit">
+                                <input type="submit" name="submit" value="Do košíku">
                             </form>
                             <?php
                         }

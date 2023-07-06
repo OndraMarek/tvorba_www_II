@@ -4,10 +4,12 @@ html {
 
 body {
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
     background-color: #e3000b;
+    padding-bottom: 10px;
 }
 
 main {
@@ -103,6 +105,7 @@ form.align {
 
 .container {
     background-color: white;
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: flex-start;
