@@ -91,3 +91,4 @@ if (isset($_SESSION["user_id"])) {
             $page = $pages[$id] ?? "inc/offers.php";
             include $page;
         } ?>
+        
